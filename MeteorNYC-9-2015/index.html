@@ -77,9 +77,15 @@ by Tom Goldenberg
 
 1. Blaze vs. React || Templates vs. Components
 
+--
+
 2. How ReactJS can improve user interactivity
 
+--
+
 3. Pros & Cons in using ReactJS
+
+--
 
 4. Challenges in Building an App with Meteor & React
 
@@ -93,6 +99,8 @@ by Tom Goldenberg
 Tom: 1999 CT State Chess Champion
 
 Ryan: 2005 CT State Chess Champion - Current Chess Master
+
+--
 
 ## Online Chess Server: Rails/Websockets vs. Meteor
 
@@ -111,6 +119,8 @@ channel.bind('move', function(data) {
  game.start();
 }
 </code></pre>
+
+--
 
 ## Meteor & ReactJS
 
@@ -131,15 +141,41 @@ channel.bind('move', function(data) {
 ---
 
 # Rails & Websockets
+
+--
+
 - Must create specific event emitters and listeners
+
+--
+
 - must configure sockets (scaling?) or pay 3rd-party service (Firebase, Pusher, etc.)
+
+--
+
 - Not a fully modern real-time experience (client-side caching, optimistic rendering)
+
+--
+
 - More code / maintenance
+
+--
+
 - Manually inserting changes into the DOM (jQuery, etc.)
 
+--
+
 # Meteor and ReactJS
+
+--
+
 - get DDP out of the box (optimistic rendering, client-side DB)
+
+--
+
 - No need to manually configure event listeners (content automatically updates)
+
+--
+
 - Work on more abstracted level - no need to use jQuery to change the DOM
 
 ---
@@ -168,23 +204,37 @@ channel.bind('move', function(data) {
 
 # Why ReactJS with Meteor?
 
+--
+
 1. Diffing algorithm == fast re-rendering
+
+--
 
 2. Component-based architecture
 
+--
+
 3. Can build complex web of user interactions seamlessly
 
+--
+
 ## Chess App
+
+--
 
 - make a move with restrictions (based on game turn and user color)
 - determine restrictions based on check, checkmate, draw, etc.
 - have ability to propose draw / accept draw
 - ability to resign
+
+--
 - ability to propose move takeback / accept undo
 - ability to message one another during the game
 - render game status and game history, while highlighting current move
 - render relevant user information and game information
 - create timer functionality and timeout features
+
+--
 - end of game - create popup to show game stats
   - give options to join new game, analyze game, or go to landing page
   - automatically render game analyze component
@@ -192,7 +242,6 @@ channel.bind('move', function(data) {
   - ability to share game on social media
 
 ---
-
 ![game](https://raw.githubusercontent.com/tgoldenberg/chess-server-mt/master/public/chessmentor-1.png)
 ![landing](https://raw.githubusercontent.com/tgoldenberg/chess-server-mt/master/public/chess-mentor-3.png)
 ---
@@ -287,6 +336,8 @@ needsUpdate: function() {
 
 </code></pre>
 
+--
+
 ## Streamy & Streamy-rooms
 
 [https://github.com/YuukanOO/streamy](https://github.com/YuukanOO/streamy)
@@ -295,20 +346,36 @@ needsUpdate: function() {
 
 ## Challenges and Downsides to ReactJS
 
+--
+
 1. Global Namespace Pollution
   i.e. `Game = ReactMeteor.createClass({..`
 
+--
+
 2. Understanding difference between `getInitialState` and `getMeteorState`
+
+--
 
 3. Figuring out way to live update without DB persistence (general challenge)
 
+--
+
 4. Difficult to reference utility files unless you use global vars
+
+--
 
 ## Benefits
 
+--
+
 1. Virtual DOM and intuitive re-rendering
 
+--
+
 2. State, behavior, and components all organized efficiently
+
+--
 
 3. Easier to manipulate non-DB-related dynamic changes
 
