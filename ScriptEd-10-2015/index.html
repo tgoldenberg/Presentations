@@ -60,12 +60,9 @@
 
 class: center, middle
 
-# Blending MeteorJS and ReactJS
+# Wireframing Basics
 
-![meteor](http://blog.cubettech.com/wp-content/uploads/2015/03/Meteorjs-Feature-Guide.png)
-![react](http://blog.sendsonar.com/wp-content/uploads/2015/08/react1.png )
-
-September 17, 2015 @ MeteorNYC Meetup
+October 22, 2015 @ About.com
 
 by Tom Goldenberg
 
@@ -73,70 +70,53 @@ by Tom Goldenberg
 
 ---
 
-# What I hope to cover
+# Wireframing Elements
 
-1. Blaze vs. React || Templates vs. Components
-
---
-
-2. How ReactJS can improve user interactivity
+1. User Experience
 
 --
 
-3. Pros & Cons in using ReactJS
+2. Styles - Fonts, Colors, Design, Branding
 
 --
 
-4. Challenges in Building an App with Meteor & React
+3. What information to convey
+
+--
+
+
+
+# Wireframing Tools
+
+1. gomockingbird.com
+
+--
+
+2. wireframe.cc
+
+--
+
+3. Pen and Paper
+
+--
+
+## Fonts
+
+1. Sans serif
 
 ---
 
-# Background Story - A Sibling Rivalry
-
-![tom](https://avatars1.githubusercontent.com/u/10930134?v=3&s=400)
-![ryan](https://avatars2.githubusercontent.com/u/12585960?v=3&s=400)
-
-Tom: 1999 CT State Chess Champion
-
-Ryan: 2005 CT State Chess Champion - Current Chess Master
+2. Serif 
 
 --
 
-## Online Chess Server: Rails/Websockets vs. Meteor
+# Bootstrap
 
----
-## Rails & Websocket-rails gem
-<pre><code>
-channel.bind('move', function(data) {
-   game.move(data);
- });
- channel.bind('game_over', function(data) {
-   game.game_over(data);
-   dispatcher.unsubscribe(channel_name);
-   $('#resign').off('click').hide();
-   $('#play').prop('disabled', false);
- });
- game.start();
-}
-</code></pre>
+1. Icons
 
---
+2. classes for designing web pages
 
-## Meteor & ReactJS
-
-```xml
-  var GameShow = ReactMeteor.createClass({
-    templateName: "gameShow",
-    getMeteorState: function() {
-      return { game: Games.findOne(this.props.game._id) };
-    },
-    render: function() {
-      return (
-        <AnalyzeGameComponent game={this.state.game}/>
-      )
-    }
-  });
-```
+3. Buttons, etc. 
 
 ---
 
