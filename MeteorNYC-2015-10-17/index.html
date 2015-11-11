@@ -94,7 +94,7 @@ by Tom Goldenberg
 
 ![scriptEd](https://s3.amazonaws.com/ellevate-app-uploads-production/events/4019/event_image/large/scripted-full-mark-orange.png?1424753155)
 
-`ScriptEd equips students in under-resourced schools with the fundamental coding skills and professional experiences that together create access to careers in technology.`
+*ScriptEd equips students in under-resourced schools with the fundamental coding skills and professional experiences that together create access to careers in technology.*
 
 ---
 
@@ -112,7 +112,7 @@ by Tom Goldenberg
 
 3. Photo/Video Uploading
 
-<img src="https://raw.githubusercontent.com/tgoldenberg/Presentations/gh-pages/candy-chat-title.png"/>
+<img height="150" src="https://raw.githubusercontent.com/tgoldenberg/Presentations/gh-pages/candy-chat-title.png"/>
 
 ---
 
@@ -138,7 +138,7 @@ by Tom Goldenberg
 
 1. Meteor 1.0 - October 28, 2014
 
-__live-updating interfaces that let people see information and collaborate with each other in real time__
+*live-updating interfaces that let people see information and collaborate with each other in real time*
 
 ![meteor](http://blog.cubettech.com/wp-content/uploads/2015/03/Meteorjs-Feature-Guide.png)
 
@@ -146,7 +146,7 @@ __live-updating interfaces that let people see information and collaborate with 
 
 2. React Native released for iOS - January, 2015
 
-__It's worth noting that we're not chasing “write once, run anywhere.” Different platforms have different looks, feels, and capabilities, and as such, we should still be developing discrete apps for each platform, but the same set of engineers should be able to build applications for whatever platform they choose, without needing to learn a fundamentally different set of technologies for each. We call this approach “learn once, write anywhere.”__
+*It's worth noting that we're not chasing “write once, run anywhere.” Different platforms have different looks, feels, and capabilities, and as such, we should still be developing discrete apps for each platform, but the same set of engineers should be able to build applications for whatever platform they choose, without needing to learn a fundamentally different set of technologies for each. We call this approach “learn once, write anywhere.”*
 
 ![react](http://blog.sendsonar.com/wp-content/uploads/2015/08/react1.png )
 
@@ -154,7 +154,7 @@ __It's worth noting that we're not chasing “write once, run anywhere.” Diffe
 
 3. First blog post about React Native and Meteor
 
-[http://hharnisc.github.io/2015/04/15/react-native-and-meteor.html](http://hharnisc.github.io/2015/04/15/react-native-and-meteor.html
+[http://hharnisc.github.io/2015/04/15/react-native-and-meteor.html](http://hharnisc.github.io/2015/04/15/react-native-and-meteor.html)
 
 <img src="https://raw.githubusercontent.com/tgoldenberg/Presentations/gh-pages/rn-meteor-1.png" height="300"/>
 
@@ -183,42 +183,51 @@ __It's worth noting that we're not chasing “write once, run anywhere.” Diffe
 
 ---
 
-# Meteor and ReactJS
+5. Better Examples
 
---
+[http://blog.differential.com/meteor-react-native-learning-from-experience/](http://blog.differential.com/meteor-react-native-learning-from-experience/)
 
-- get DDP out of the box (optimistic rendering, client-side DB)
+Spencer Carli and meteor-todos-react-native-2 - more elegant solution to DDP bridge
 
---
-
-- No need to manually configure event listeners (content automatically updates)
-
---
-
-- Work on more abstracted level - no need to use jQuery to change the DOM
+<pre><code>
+  componentDidMount(){
+    ddp.initialize()
+      .then(() => {
+        this.setState({connected: true});
+        this.messageSubscribe();
+      });
+  }
+  messageSubscribe(){
+    ddp.subscribe('messages', []);
+      .then(() => {
+        let messagesObserver = ddp.collections.observer(() => {
+          let messages = [];
+          if (ddp.collections.messages) {
+            messages = ddp.collections.messages.find();
+          }
+          return messages;
+        })
+        this.setState({messagesObserver: messagesObserver})
+        messagesObserver.subscribe((results) => {
+          this.setState({messages: results})
+        })
+      })
+  }
+</code></pre>
 
 ---
-# React basics
-```xml
-  Counter = React.createClass({
-    getInitialState: function() {
-      return {count: 0}
-    },
-    handleClick: function() {
-      this.setState({count: this.state.count+1});
-    },
-    render: function() {
-      <div>
-        <p>{this.state.count}</p>
-        <button onClick={this.handleClick}>Hit me</button>
-      </div>
-    }
-  });
-```
 
-## State - dynamic changeable data
-## Props - passed on properties (usually doesn't change from user behavior)
+6. React Native Websocket Polyfill for Android - merged October 7th
 
+## Challenges
+
+--
+
+1. slower development process and less structure than iOS
+--
+2. scene transitions can be slow
+--
+3. no support for Webpack yet - (no hot code push)
 ---
 
 # Why ReactJS with Meteor?
