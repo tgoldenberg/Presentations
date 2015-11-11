@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <script src="remark.language.js"></script>
+    <script>
+      var hljs = remark.highlighter.engine;
+    </script>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif';
+        color: white;
+      }
+      a {
+        color: rgba(81, 203, 238, 1);
+      }
+      .remark-slide-container {
+        background-color: #3b5998;
+      }
+      .remark-slide-content {
+        background-color: black;
+      }
+      #source {
+        background: black;
+      }
+      img[alt=react] {
+        width: 100px;
+        margin-bottom: 2%;
+      }
+      img[alt=meteor] {
+        width: 300px;
+        margin-left: -10%;
+      }
+      img[alt=tom], img[alt=ryan] {
+        width: 200px;
+      }
+      img[alt=game], img[alt=landing] {
+        width: 600px;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+      }
+      pre {
+        color: black;
+        padding: 1em;
+        border-radius: 3px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Blending MeteorJS and ReactJS
+
+![meteor](http://blog.cubettech.com/wp-content/uploads/2015/03/Meteorjs-Feature-Guide.png)
+![react](http://blog.sendsonar.com/wp-content/uploads/2015/08/react1.png )
+
+September 17, 2015 @ MeteorNYC Meetup
+
+by Tom Goldenberg
+
+#### Github: tgoldenberg
+
+---
+
+# What I hope to cover
+
+1. Blaze vs. React || Templates vs. Components
+
+--
+
+2. How ReactJS can improve user interactivity
+
+--
+
+3. Pros & Cons in using ReactJS
+
+--
+
+4. Challenges in Building an App with Meteor & React
+
+---
+
+# Background Story - A Sibling Rivalry
+
+![tom](https://avatars1.githubusercontent.com/u/10930134?v=3&s=400)
+![ryan](https://avatars2.githubusercontent.com/u/12585960?v=3&s=400)
+
+Tom: 1999 CT State Chess Champion
+
+Ryan: 2005 CT State Chess Champion - Current Chess Master
+
+--
+
+## Online Chess Server: Rails/Websockets vs. Meteor
+
+---
+## Rails & Websocket-rails gem
+<pre><code>
+channel.bind('move', function(data) {
+   game.move(data);
+ });
+ channel.bind('game_over', function(data) {
+   game.game_over(data);
+   dispatcher.unsubscribe(channel_name);
+   $('#resign').off('click').hide();
+   $('#play').prop('disabled', false);
+ });
+ game.start();
+}
+</code></pre>
+
+--
+
+## Meteor & ReactJS
+
+```xml
+  var GameShow = ReactMeteor.createClass({
+    templateName: "gameShow",
+    getMeteorState: function() {
+      return { game: Games.findOne(this.props.game._id) };
+    },
+    render: function() {
+      return (
+        <AnalyzeGameComponent game={this.state.game}/>
+      )
+    }
+  });
+```
+
+---
+
+# Rails & Websockets
+
+--
+
+- Must create specific event emitters and listeners
+
+--
+
+- must configure sockets (scaling?) or pay 3rd-party service (Firebase, Pusher, etc.)
+
+--
+
+- Not a fully modern real-time experience (client-side caching, optimistic rendering)
+
+--
+
+- More code / maintenance
+
+--
+
+- Manually inserting changes into the DOM (jQuery, etc.)
+
+--
+
+# Meteor and ReactJS
+
+--
+
+- get DDP out of the box (optimistic rendering, client-side DB)
+
+--
+
+- No need to manually configure event listeners (content automatically updates)
+
+--
+
+- Work on more abstracted level - no need to use jQuery to change the DOM
+
+---
+# React basics
+```xml
+  Counter = React.createClass({
+    getInitialState: function() {
+      return {count: 0}
+    },
+    handleClick: function() {
+      this.setState({count: this.state.count+1});
+    },
+    render: function() {
+      <div>
+        <p>{this.state.count}</p>
+        <button onClick={this.handleClick}>Hit me</button>
+      </div>
+    }
+  });
+```
+
+## State - dynamic changeable data
+## Props - passed on properties (usually doesn't change from user behavior)
+
+---
+
+# Why ReactJS with Meteor?
+
+--
+
+1. Diffing algorithm == fast re-rendering
+
+--
+
+2. Component-based architecture
+
+--
+
+3. Can build complex web of user interactions seamlessly
+
+--
+
+## Chess App
+
+--
+
+- make a move with restrictions (based on game turn and user color)
+- determine restrictions based on check, checkmate, draw, etc.
+- have ability to propose draw / accept draw
+- ability to resign
+
+--
+- ability to propose move takeback / accept undo
+- ability to message one another during the game
+- render game status and game history, while highlighting current move
+- render relevant user information and game information
+- create timer functionality and timeout features
+
+--
+- end of game - create popup to show game stats
+  - give options to join new game, analyze game, or go to landing page
+  - automatically render game analyze component
+  - ability to go move by move and analyze game
+  - ability to share game on social media
+
+---
+![game](https://raw.githubusercontent.com/tgoldenberg/chess-server-mt/master/public/chessmentor-1.png)
+![landing](https://raw.githubusercontent.com/tgoldenberg/chess-server-mt/master/public/chess-mentor-4.png)
+---
+## How this was achieved with Meteor and ReactJS
+<pre><code>
+  {
+	"_id" : "K3aYFMWYkjZNGt7Fm",
+	"createdAt" : ISODate("2015-09-13T18:47:26.507Z"),
+	"joinedAt" : ISODate("2015-09-13T18:47:27.023Z"),
+	"completedAt" : null,
+	"fen" : [
+		"rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+	],
+	"pgn" : "",
+	"moves" : [ ],
+	"winner" : "",
+	"gameOver" : false,
+	"draw" : false,
+	"history" : [ ],
+	"blackTimer" : 300,
+	"whiteTimer" : 300,
+	"white" : {
+		"userId" : "zx8oSyE8rheJzpvuM",
+		"name" : "tgoldenberg",
+		"rating" : 1200,
+		"country" : "United States",
+		"gamesPlayed" : 0,
+	},
+	"black" : {},
+	"status" : "Black joined. Ready to start game."
+}
+</code></pre>
+
+---
+
+<pre><code>
+getMeteorState: function() {
+  return { game: Games.findOne(this.props.game._id)  };
+},
+getInitialState: function() {
+  return {
+    board: null,
+    chess: new Chess(),
+    messages: [],
+    blackTimerSeconds: Games.findOne(this.props.game._id).blackTimer,
+    whiteTimerSeconds: Games.findOne(this.props.game._id).whiteTimer
+},
+componentDidMount: function() {
+    this.state.chess.load_pgn(Games.findOne(this.props.game._id).pgn);
+    if (! this.state.game.gameOver)
+      this.setState({board: new ChessBoard('board', config)});
+},
+componentDidUpdate: function() {
+  if (this.needsUpdate()) { // listen for new moves
+    var moveAttributes = this.getMoveData();
+    var move = this.state.chess.move(moveAttributes);
+    if (move) {
+      this.state.board.position(this.state.chess.fen()); // update board
+      this.switchTurn(); // change timer
+    }
+  }
+},
+needsUpdate: function() {
+  return (this.state.chess.turn() == 'b' && this.props.userColor() == 'w') ||
+         (this.state.chess.turn() == 'w' && this.props.userColor() == 'b');
+},
+</code></pre>
+
+---
+
+## What about real-time changes without the DB?
+
+<pre><code>
+  submitMessage: function(e) {
+    e.preventDefault();
+    var message = React.findDOMNode(this.refs.message).value;
+    React.findDOMNode(this.refs.message).value = "";
+    Streamy.rooms(this.props.gameId).emit('outgoing_chat', {
+      from: this.props.username,
+      message: message,
+      submitted: new Date()
+    });
+  }
+
+  // game.js
+
+  Template.game.onRendered(function() {
+    Streamy.onConnect(function() {
+      Meteor.subscribe('rooms', Streamy.id());
+    });
+  });
+
+</code></pre>
+
+--
+
+## Streamy & Streamy-rooms
+
+[https://github.com/YuukanOO/streamy](https://github.com/YuukanOO/streamy)
+
+---
+
+## Challenges and Downsides to ReactJS
+
+--
+
+1. Global Namespace Pollution
+  i.e. `Game = ReactMeteor.createClass({..`
+
+--
+
+2. Understanding difference between `getInitialState` and `getMeteorState`
+
+--
+
+3. Figuring out way to live update without DB persistence (general challenge)
+
+--
+
+4. Difficult to reference utility files unless you use global vars
+
+--
+
+## Benefits
+
+--
+
+1. Virtual DOM and intuitive re-rendering
+
+--
+
+2. State, behavior, and components all organized efficiently
+
+--
+
+3. Easier to manipulate non-DB-related dynamic changes
+
+---
+class: center, middle
+
+# Future Plans
+
+Github: [https://www.github.com/tgoldenberg/chess-server-mt](https://www.github.com/tgoldenberg/chess-server-mt)
+
+Website: [http://chessmentor.meteor.com](http://chessmentor.meteor.com)
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+    var slideshow = remark.create({
+        highlightStyle: 'monokai',
+        highlightLanguage: 'remark'
+      }) ;
+    </script>
+  </body>
+</html>
