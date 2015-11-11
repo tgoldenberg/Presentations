@@ -45,6 +45,7 @@
         font-family: 'Yanone Kaffeesatz';
         font-weight: normal;
         padding: 0;
+        text-align: center;
         margin: 0;
       }
       pre {
@@ -224,103 +225,27 @@ Spencer Carli and meteor-todos-react-native-2 - more elegant solution to DDP bri
 --
 
 1. slower development process and less structure than iOS
+
 --
+
 2. scene transitions can be slow
+
 --
+
 3. no support for Webpack yet - (no hot code push)
----
-
-# Why ReactJS with Meteor?
-
---
-
-1. Diffing algorithm == fast re-rendering
-
---
-
-2. Component-based architecture
-
---
-
-3. Can build complex web of user interactions seamlessly
 
 ---
 
-## What about real-time changes without the DB?
+#Personal Reflections
 
-<pre><code>
-  submitMessage: function(e) {
-    e.preventDefault();
-    var message = React.findDOMNode(this.refs.message).value;
-    React.findDOMNode(this.refs.message).value = "";
-    Streamy.rooms(this.props.gameId).emit('outgoing_chat', {
-      from: this.props.username,
-      message: message,
-      submitted: new Date()
-    });
-  }
+1. Roughly 85% code re-use between Android and iOS
 
-  // game.js
+2. Growing community of contributors
 
-  Template.game.onRendered(function() {
-    Streamy.onConnect(function() {
-      Meteor.subscribe('rooms', Streamy.id());
-    });
-  });
-
-</code></pre>
-
---
-
-## Streamy & Streamy-rooms
-
-[https://github.com/YuukanOO/streamy](https://github.com/YuukanOO/streamy)
+3. Need for iOS / Android for startups
 
 ---
 
-## Challenges and Downsides to ReactJS
-
---
-
-1. Global Namespace Pollution
-  i.e. `Game = ReactMeteor.createClass({..`
-
---
-
-2. Understanding difference between `getInitialState` and `getMeteorState`
-
---
-
-3. Figuring out way to live update without DB persistence (general challenge)
-
---
-
-4. Difficult to reference utility files unless you use global vars
-
---
-
-## Benefits
-
---
-
-1. Virtual DOM and intuitive re-rendering
-
---
-
-2. State, behavior, and components all organized efficiently
-
---
-
-3. Easier to manipulate non-DB-related dynamic changes
-
----
-class: center, middle
-
-# Future Plans
-
-Github: [https://www.github.com/tgoldenberg/chess-server-mt](https://www.github.com/tgoldenberg/chess-server-mt)
-
-Website: [http://chessmentor.meteor.com](http://chessmentor.meteor.com)
 
     </textarea>
     <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
