@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <style>
+    div {
+      width: 100%;
+      height: 50px;
+      border: 1px solid #000;
+    }
+  </style>
+</head>
+
+<body>
+  <div></div>
+  <div></div>
+  <div></div>
+  <div></div>
+
+
+  <script>
+
+    var divs = document.getElementsByTagName("div");
+    console.log(divs);
+    for (var i = 0; i < divs.length; i++) (function(idx) {
+      divs[idx].addEventListener("click", function() {
+        console.log("You clicked #" + idx);
+      }, false);
+    })(i);
+  </script>
+</body>
+
+</html>
+
+
+function($) {
+
+}(jQuery);

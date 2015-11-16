@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <script src="remark.language.js"></script>
+    <script>
+      var hljs = remark.highlighter.engine;
+    </script>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif';
+        color: white;
+      }
+      a {
+        color: rgba(81, 203, 238, 1);
+      }
+      .remark-slide-container {
+        background-color: #3b5998;
+      }
+      .remark-slide-content {
+        background-color: black;
+      }
+      #source {
+        background: black;
+      }
+      img[alt=react] {
+        width: 100px;
+        margin-bottom: 2%;
+      }
+      img[alt=meteor] {
+        width: 300px;
+        margin-left: -10%;
+      }
+      img[alt=tom], img[alt=ryan] {
+        width: 200px;
+      }
+      img[alt=game], img[alt=landing] {
+        width: 600px;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        padding: 0;
+        margin: 0;
+      }
+      pre {
+        color: black;
+        padding: 1em;
+        border-radius: 3px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Using Git and Github
+
+October 12, 2015 @ ScriptEd
+
+by Tom Goldenberg
+
+#### Github: tgoldenberg
+
+---
+
+# What I hope to cover
+
+1. What is Git?
+
+--
+
+2. What is Github?
+
+--
+
+3. How does Github use Git?
+
+--
+
+4. How to effectively use Git?
+
+---
+
+# Git
+
+Git is a version control software. Git takes a virtual snapshot of your project whenever you do the commands `git add -A` and `git commit -m "commit"`
+
+---
+
+The 7 most useful Git commands
+
+--
+
+1. `git init`
+
+--
+
+2. `git clone YOUR_REPO_NAME`
+
+--
+
+3. `git remote add origin YOUR_REPO_NAME`
+
+--
+
+4. `git add -A`
+
+--
+
+5. `git commit -m "message"`
+
+--
+
+6. `git push origin master`
+
+--
+
+7. `git status`
+
+---
+
+# Helpful Links
+
+Git Basics: https://git-scm.com/book/en/v2/Getting-Started-Git-Basics
+
+CodeSchool: https://www.codeschool.com/paths/git
+
+CodeAcademy: https://www.codecademy.com/learn/learn-git
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+    var slideshow = remark.create({
+        highlightStyle: 'monokai',
+        highlightLanguage: 'remark'
+      }) ;
+    </script>
+  </body>
+</html>
