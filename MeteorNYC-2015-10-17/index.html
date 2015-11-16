@@ -87,19 +87,41 @@ by Tom Goldenberg
 --
 
 <p class="left">
-  1. How the destinies of React Native and Meteor have led to this moment
+  1. Why React Native is exciting
 </p>
 
 --
 
 <p class="left">
-  2. What React Native can bring to mobile development with Meteor
+  2. Look at a regular Meteor app with a React front-end
 </p>
 
 --
 
 <p class="left">
-  3. Looking Ahead
+  3. Compare the Meteor front-end with React-Native for iOS and Android
+</p>
+
+---
+
+# Reasons to be excited about Meteor and React Native
+
+--
+
+<p class="left">
+  1. Native look and feel without Objective C / Swift
+</p>
+
+--
+
+<p class="left">
+  2. Debugging Tools - Chrome debugger and live reload
+</p>
+
+--
+
+<p class="left">
+  3. Using native modules directly without plugins
 </p>
 
 ---
@@ -170,7 +192,7 @@ Websocket Polyfill implemented for iOS in React Native
 <pre><code>
   const DDPClient = require('ddp-client');
 
-  let ddpClient = new DDPClient({url: http://localhost:3000});
+  let ddpClient = new DDPClient({"url: http://localhost:3000"});
 
   ddpClient.connect();
 
@@ -201,7 +223,7 @@ Spencer Carli and meteor-todos-react-native-2 - more elegant solution to DDP bri
       });
   }
   messageSubscribe(){
-    ddp.subscribe('messages', []);
+    ddp.subscribe('messages', [])
       .then(() => {
         let messagesObserver = ddp.collections.observer(() => {
           let messages = [];
@@ -252,25 +274,10 @@ React Native Websocket Polyfill for Android - merged October 7th
 
 ---
 
-# Reasons to be excited about Meteor and React Native
+# Ready to use React Native and Meteor?
 
---
-
-<p class="left">
-  1. Native look and feel without Objective C / Swift
-</p>
-
---
-
-<p class="left">
-  2. Debugging Tools - Chrome debugger and live reload
-</p>
-
---
-
-<p class="left">
-  3. Using native modules directly without plugins
-</p>
+![meteor](http://blog.cubettech.com/wp-content/uploads/2015/03/Meteorjs-Feature-Guide.png)
+![react](http://blog.sendsonar.com/wp-content/uploads/2015/08/react1.png )
 
 ---
 
