@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Title</title>
+    <script src="remark.language.js"></script>
+    <script>
+      var hljs = remark.highlighter.engine;
+    </script>
+    <meta charset="utf-8">
+    <style>
+      @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz);
+      @import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic);
+      @import url(https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700,400italic);
+
+      body { font-family: 'Droid Serif';
+        color: white;
+      }
+      a {
+        color: rgba(81, 203, 238, 1);
+      }
+      .remark-slide-container {
+        background-color: #3b5998;
+      }
+      .remark-slide-content {
+        background-color: black;
+      }
+      #source {
+        background: black;
+      }
+      img[alt=react] {
+        width: 100px;
+        margin-bottom: 2%;
+      }
+      img[alt=meteor] {
+        width: 300px;
+      }
+      img[alt=tom], img[alt=ryan] {
+        width: 200px;
+      }
+      img[alt=game], img[alt=landing] {
+        width: 600px;
+      }
+      p {
+        font-size: 32px;
+      }
+      h1, h2, h3 {
+        font-family: 'Yanone Kaffeesatz';
+        font-weight: normal;
+        padding: 0;
+        text-align: center;
+        margin: 0;
+      }
+      p, a, img {
+        text-align: center;
+      }
+      p.left {
+        text-align: left;
+      }
+      pre {
+        color: black;
+        padding: 1em;
+        border-radius: 3px;
+      }
+      .remark-code, .remark-inline-code { font-family: 'Ubuntu Mono'; }
+    </style>
+  </head>
+  <body>
+    <textarea id="source">
+
+class: center, middle
+
+# Building a Production App with React Native
+
+
+![react](http://blog.sendsonar.com/wp-content/uploads/2015/08/react1.png )
+
+March 4, 2016 @ ReactNative NYC Meetup
+
+by Tom Goldenberg
+
+#### Twitter: @tomgoldenberg
+
+---
+
+# How we started
+
+--
+
+<img height="400" src="https://raw.githubusercontent.com/tgoldenberg/candy-chat-mtr/master/meteor-chat/candy-chat-3.png"/>
+<img height="400" src="https://raw.githubusercontent.com/tgoldenberg/candy-chat-mtr/master/meteor-chat/candy-chat-3.png"/>
+
+
+--
+
+<p class="left">
+  2. Look at a regular Meteor app with a React front-end
+</p>
+
+--
+
+<p class="left">
+  3. Compare the Meteor front-end with React-Native for iOS and Android
+</p>
+
+---
+
+# Reasons to be excited about Meteor and React Native
+
+--
+
+<p class="left">
+  1. Native look and feel without Objective C / Swift
+</p>
+
+--
+
+<p class="left">
+  2. Debugging Tools - Chrome debugger and live reload
+</p>
+
+--
+
+<p class="left">
+  3. Using native modules directly without plugins
+</p>
+
+---
+
+# Background Story - Teaching High School Students
+
+![scriptEd](https://s3.amazonaws.com/ellevate-app-uploads-production/events/4019/event_image/large/scripted-full-mark-orange.png?1424753155)
+
+*ScriptEd equips students in under-resourced schools with the fundamental coding skills and professional experiences that together create access to careers in technology.*
+
+---
+
+# Requirements from students:
+
+--
+
+<p class="left">
+  1. Emojis
+</p>
+
+--
+
+<p class="left">
+  2. Chat
+</p>
+
+--
+
+<p class="left">
+  3. Photo/Video Uploading
+</p>
+
+--
+
+<img height="150" src="https://raw.githubusercontent.com/tgoldenberg/Presentations/gh-pages/candy-chat-title.png"/>
+
+---
+
+# Final Product
+
+## Testing
+
+--
+<img height="400" src="https://raw.githubusercontent.com/tgoldenberg/candy-chat-mtr/master/meteor-chat/candy-chat-3.png"/>
+
+---
+# Final Product
+
+## User Validation
+
+--
+<img height="400" src="https://raw.githubusercontent.com/tgoldenberg/Presentations/gh-pages/candy-chat-4.png"/>
+
+---
+
+First blog post about React Native and Meteor
+
+[http://hharnisc.github.io/2015/04/15/react-native-and-meteor.html](http://hharnisc.github.io/2015/04/15/react-native-and-meteor.html)
+
+<img src="https://raw.githubusercontent.com/tgoldenberg/Presentations/gh-pages/rn-meteor-1.png" height="300"/>
+
+---
+
+Websocket Polyfill implemented for iOS in React Native
+
+[https://github.com/hharnisc/react-native-meteor-websocket-polyfill](https://github.com/hharnisc/react-native-meteor-websocket-polyfill)
+
+<pre><code>
+  const DDPClient = require('ddp-client');
+
+  let ddpClient = new DDPClient({"url: http://localhost:3000"});
+
+  ddpClient.connect();
+
+  ddpClient.subscribe('messages', []);
+
+  ddpClient.on('message', function(message) {
+    let msg = JSON.parse(message);
+    switch(msg.collection) {
+      case: /// determine which data type and update data store / state
+    }
+  });
+</code></pre>
+
+---
+
+Better Examples
+
+[http://blog.differential.com/meteor-react-native-learning-from-experience/](http://blog.differential.com/meteor-react-native-learning-from-experience/)
+
+Spencer Carli and meteor-todos-react-native-2 - more elegant solution to DDP bridge
+
+<pre><code>
+  componentDidMount(){
+    ddp.initialize()
+      .then(() => {
+        this.setState({connected: true});
+        this.messageSubscribe();
+      });
+  }
+  messageSubscribe(){
+    ddp.subscribe('messages', [])
+      .then(() => {
+        let messagesObserver = ddp.collections.observer(() => {
+          let messages = [];
+          if (ddp.collections.messages) {
+            messages = ddp.collections.messages.find();
+          }
+          return messages;
+        })
+        this.setState({messagesObserver: messagesObserver})
+        messagesObserver.subscribe((results) => {
+          this.setState({messages: results})
+        })
+      })
+  }
+</code></pre>
+
+---
+
+React Native Websocket Polyfill for Android - merged October 7th
+
+--
+
+## React Native Android Challenges
+
+--
+
+<p class="left">
+  1. slower development process and less structure than iOS
+</p>
+
+--
+
+<p class="left">
+  2. need for bridge modules
+</p>
+
+--
+
+<p class="left">
+  3. scene transitions can be slow
+</p>
+
+--
+
+<p class="left">
+  4. no support for Webpack yet - (no hot code push)
+</p>
+
+---
+
+# Ready to use React Native and Meteor?
+
+![meteor](http://blog.cubettech.com/wp-content/uploads/2015/03/Meteorjs-Feature-Guide.png)
+![react](http://blog.sendsonar.com/wp-content/uploads/2015/08/react1.png )
+
+---
+
+# Links
+
+- React-Native NYC Meetup - [www.meetup.com/React-Native-NYC](www.meetup.com/React-Native-NYC)
+
+- meteor-react-native-chat-demo repo - [https://github.com/tgoldenberg/meteor-react-native-chat-example](https://github.com/tgoldenberg/meteor-react-native-chat-example)
+
+- meteor-react-native-todos repo - [https://github.com/spencercarli/meteor-todos-react-native](https://github.com/spencercarli/meteor-todos-react-native)
+
+- follow me on Github or Twitter - @tgoldenberg
+
+---
+
+    </textarea>
+    <script src="https://gnab.github.io/remark/downloads/remark-latest.min.js">
+    </script>
+    <script>
+    var slideshow = remark.create({
+        highlightStyle: 'monokai',
+        highlightLanguage: 'remark'
+      }) ;
+    </script>
+  </body>
+</html>
