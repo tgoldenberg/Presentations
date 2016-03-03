@@ -96,7 +96,7 @@ by Tom Goldenberg
 
 ---
 
-# Before Nick
+# Early Prototype
 
 --
 
@@ -124,35 +124,87 @@ by Tom Goldenberg
 
 ---
 
-# After Nick
+# Nick's wireframes
 
 --
 
-<img height="400" src="images/gita-1.png"/>
+<img height="400" src="images/gita-16.png"/>
 
 ---
 
-<img height="400" src="images/gita-1.png"/>
+<img height="400" src="images/gita-15.png"/>
 
 ---
 
-<img height="400" src="images/gita-1.png"/>
+<img height="400" src="images/gita-17.png"/>
 
 ---
 
-# During the Building
+# Features
 
 --
 
-<img height="400" src="images/gita-1.png"/>
+1. Favorites
+
+--
+
+2. Onboarding sequence
+
+--
+
+3. Modal Commentary
+
+--
+
+4. Social Sharing
+
+--
+
+5. Verse of the Day
+
+--
+
+6. Easy to navigate chapters
+
+--
+
+7. Go to Verse Linking
 
 ---
 
-<img height="400" src="images/gita-1.png"/>
+# Final Product
+
+--
+
+<img height="400" src="images/gita-7.png"/>
 
 ---
 
-<img height="400" src="images/gita-1.png"/>
+<img height="400" src="images/gita-8.png"/>
+
+---
+
+<img height="400" src="images/gita-9.png"/>
+
+---
+
+# Some hacky solutions
+
+<pre><code>
+  renderRow(rowData, sectionID, rowID){
+
+  return (
+      <Animatable.View
+        onLayout={(event) => {
+          let height = event.nativeEvent.layout.y;
+          this.rows[key] = height;
+          if (specificVerse && verseNumber == specificVerse.verse) {
+            this.setState({ready: true,});
+            this._scrollToVerse();
+          }
+        }}
+      }
+</code></pre>
 
 ---
 
