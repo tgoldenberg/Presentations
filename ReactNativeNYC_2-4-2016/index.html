@@ -192,8 +192,7 @@ by Tom Goldenberg
 
 <pre><code>
   renderRow(rowData, sectionID, rowID){
-
-  return (
+    return (
       <Animatable.View
         onLayout={(event) => {
           let height = event.nativeEvent.layout.y;
@@ -204,6 +203,12 @@ by Tom Goldenberg
           }
         }}
       }
+  _scrollToVerse(){
+    let {specificVerse,} = this.props;
+    let key = `${specificVerse.chapter}.${specificVerse.verse}`
+    let verseHeight = this.rows[key] ? this.rows[key] : 0
+    this.refs.share.scrollResponderScrollWithouthAnimationTo(0, verseHeight);
+  }
 </code></pre>
 
 ---
